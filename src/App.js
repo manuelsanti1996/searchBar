@@ -5,12 +5,16 @@ function App() {
   const searchHandle = (event)=>{
     setSearch(event.target.value)
   }
-  const [search,setSearch]= useState('')
+  const [search,setSearch]= useState({
+    first_name:'',
+    last_name:'',
+    email:'',
+  })
   return (
     <div className="flex items-center justify-center flex-col">
     <form>
       <input
-        className="w-64 px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
+        className=" w-64 px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
         type="text"
         placeholder="Search..."
         onChange={searchHandle}
@@ -20,11 +24,13 @@ function App() {
     >
       
    <SearchIcon>search</SearchIcon> </button>{JSONDATA.filter((val)=>{
-    if(search===""){return val} else if (val.first_name.toLowerCase().includes(search)){return val
+    if(search===""){return false} else if (val.first_name.toLowerCase().includes(search)){return val
     }}).map((val,key)=>{
-        return <div key={key}>
+        return <div key={key} className=" grid grid-cols-3 gap-4">
           {" "}
-          <p className='flex items-center justify-center text-blue-600 my-10'>{val.first_name} </p>
+          <div className='col-span-1 white'>{val.first_name} </div>
+          <div className='col-span-1 white'>{val.last_name} </div>
+          <div className='col-span-1 white'>{val.email} </div>
         </div>
       })}
     
